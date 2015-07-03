@@ -1,0 +1,50 @@
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name testAngularShopApp.services:AuthService
+ * @description
+ * # AuthService
+ * Auth service of app.
+ */
+
+var AuthService = function(bcrypt, localStorageService) {
+  var authService = {};
+
+  authService.login = function(credentials) {
+    var email = localStorageService.get('email'),
+      hash = localStorageService.get('hash');
+
+    if (email === credentials.email && bcrypt.compareSync(credentials.password, hash)) {
+      localStorageService.set('isauth', true);
+      return true;
+    }
+    return false;
+  };
+
+  authService.logout = function() {
+    localStorageService.set('isauth', false);
+  };
+
+  authService.signup = function(credentials) {
+    var salt = bcrypt.genSaltSync(4),
+      hash = bcrypt.hashSync(credentials.password, salt);
+
+    localStorageService.set('email', credentials.email);
+    localStorageService.set('hash', hash);
+  };
+
+  authService.isAuthenticated = function () {
+    // FIXME: This is bad practice! It should compare passwords.
+    return localStorageService.get('isauth');
+  };
+
+  authService.getEmail = function() {
+    return localStorageService.get('email');
+  };
+
+  return authService;
+};
+
+angular.module('testAngularShopApp')
+  .factory('AuthService', AuthService);

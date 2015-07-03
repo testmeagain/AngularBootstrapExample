@@ -1,0 +1,12 @@
+{
+  "browser": true,
+  "es6": true,
+  "indent": 2,
+  "predef": [
+    "angular",
+    "$"
+  ],
+  "stupid": true,
+  "use_array": false,
+  "windows" : false 
+}

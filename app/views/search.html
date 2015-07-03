@@ -1,0 +1,105 @@
+<div class="container page-header">
+  <h1>Search</h1>
+</div>
+
+<div class="container well">
+
+  <form class="form row">
+
+    <div class="container">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="date-from">Date from</label>
+          <span class="input-group">
+          
+            <input type="text" id="date-from" datepicker-popup="yyyy/MM/dd" is-open="dateFromOpened" datepicker-options="dateOptions" class="form-control" ng-model="filter.dateFrom" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="toggleDateFromPopup($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </span>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="date-to">Date to</label>
+          <span class="input-group">
+            <input type="text" id="date-to" datepicker-popup is-open="dateToOpened" datepicker-options="dateOptions" class="form-control" ng-model="filter.dateTo"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="toggleDateToPopup($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </span>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>In stock</label>
+          <span class="form-control">
+            <input class="form-control11" type="checkbox" ng-model="filter.inStock"/>
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label>Min price:</label>
+          <input type="text" only-numbers class="form-control" ng-model="filter.minPrice"/>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Max price:</label>
+          <input type="text" only-numbers class="form-control" ng-model="filter.maxPrice"/>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Color</label>
+          <select name="colors" class="form-control" ng-model="filter.color">
+            <option value="">--</option>
+            <option value="{{ color }}" ng-repeat="color in colors">{{ color }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container panel panel-default" ng-repeat="item in items|itemfilter:filter">
+  <div class="row panel-body">
+
+    <div class="media">
+      <div class="media-left">
+        <img class="media-object" ng-src="{{ item.Image }}" alt="{{ item.Name }}"/>
+      </div>
+
+      <div class="media-body container">
+        <div class="row">
+          <div class="col-md-4">
+            Name: {{ item.Name }}
+          </div>
+          <div class="col-md-4">
+            Date: {{ item.Date }}
+          </div>
+          <div class="col-md-4">
+            Price: {{ item.Price | currency }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            Color: {{ item.Color }}
+          </div>
+          <div class="col-md-4">
+            InStock: {{ item.InStock }}
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-default btn-primary" role="button" ng-click="addToCart(item)">Order</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            Raiting <stars ng-model="item.Raiting"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
