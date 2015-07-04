@@ -59,7 +59,7 @@ var AuthService = function($state, bcrypt, localStorageService) {
         $state.go('login');
       }
     }
-  }
+  };
 
   return authService;
 };

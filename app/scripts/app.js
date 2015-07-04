@@ -51,8 +51,8 @@ angular
     $state.go('search');
     $rootScope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
-        console.log("To state:" + toState.name);
+        console.log('To state:' + toState.name);
         AuthService.checkAccess(event, toState, toParams, fromState, fromParams);
       }
-    );  
+    );
   });
