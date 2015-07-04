@@ -11,6 +11,15 @@
 var AuthService = function(bcrypt, localStorageService) {
   var authService = {};
 
+  bcrypt.setRandomFallback(function(num) {
+    var arr = [];
+    var i;
+    for (i = 0; i < num; i++) {
+      arr.push(Math.random());
+    }
+    return arr;
+  });
+
   authService.login = function(credentials) {
     var email = localStorageService.get('email'),
       hash = localStorageService.get('hash');

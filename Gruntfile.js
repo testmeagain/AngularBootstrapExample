@@ -312,7 +312,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.tmp/concat/scripts',
-          src: '*.js',
+          src: 'scripts.js',
           dest: '.tmp/concat/scripts'
         }]
       }
@@ -334,7 +334,6 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '.htaccess',
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
@@ -418,7 +417,7 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'babel',
     'copy:dist',
-    'cdnify',
+//    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
