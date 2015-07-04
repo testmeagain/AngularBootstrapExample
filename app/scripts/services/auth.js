@@ -8,7 +8,7 @@
  * Auth service of app.
  */
 
-var AuthService = function(bcrypt, localStorageService) {
+var AuthService = function($state, bcrypt, localStorageService) {
   var authService = {};
 
   bcrypt.setRandomFallback(function(num) {
@@ -51,6 +51,15 @@ var AuthService = function(bcrypt, localStorageService) {
   authService.getEmail = function() {
     return localStorageService.get('email');
   };
+
+  authService.checkAccess = function(event, toState, toParams, fromState, fromParams) {
+    if (toState.data !== undefined && toState.data.authNeeds !== undefined && toState.data.authNeeds) {
+      if (!authService.isAuthenticated()) {
+        event.preventDefault();
+        $state.go('login');
+      }
+    }
+  }
 
   return authService;
 };

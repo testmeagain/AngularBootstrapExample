@@ -37,13 +37,22 @@ angular
     .state('search', {
       url: '/search',
       templateUrl: 'views/search.html',
-      controller: 'SearchCtrl'
+      controller: 'SearchCtrl',
+      data: {
+        authNeeds: true
+      }
     });
 
     localStorageServiceProvider
       .setPrefix('testAngularShopApp')
       .setStorageType('localStorage');
 
-  }).run(function($state) {
-      $state.go('search');
+  }).run(function($state, $rootScope, AuthService) {
+    $state.go('search');
+    $rootScope.$on('$stateChangeStart',
+      function (event, toState, toParams, fromState, fromParams) {
+        console.log("To state:" + toState.name);
+        AuthService.checkAccess(event, toState, toParams, fromState, fromParams);
+      }
+    );  
   });

@@ -11,10 +11,6 @@ var TopMenuCtrl = function($scope, $log, $state, $modal, AuthService, CartServic
   $scope.auth = AuthService;
   $scope.cart = CartService;
 
-  if (!AuthService.isAuthenticated()) {
-    $state.go('login');
-  }
-
   $scope.logout = function() {
     AuthService.logout();
     $state.go('login');
