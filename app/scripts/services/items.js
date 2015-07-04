@@ -12,7 +12,7 @@ var ItemsService = function($http, $q) {
   var ItemsService = {};
 
   ItemsService.get = function() {
-    return $http.get('/data.json');
+    return $http.get('data.json');
   };
 
 
