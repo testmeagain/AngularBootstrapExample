@@ -11,6 +11,10 @@ var ItemFilter = function($log) {
   return function(items, filter) {
     var arr = [];
 
+    if(!angular.isArray(items)) {
+      return;
+    }
+
     angular.forEach(items, function(item) {
       if (filter.inStock && item.InStock !== true) {
         return;
@@ -36,10 +40,10 @@ var ItemFilter = function($log) {
         return;
       }
 
-      arr.push(item);
-    });
+      $log.debug('Count:' + arr.length);
 
-    $log.debug('Count:' + arr.length);
+      this.push(item);
+    }, arr);
 
     return arr;
   };
