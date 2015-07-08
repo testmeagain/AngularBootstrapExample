@@ -11,7 +11,7 @@ var ItemFilter = function($log) {
   return function(items, filter) {
     var arr = [];
 
-    if(!angular.isArray(items)) {
+    if (!angular.isArray(items)) {
       return;
     }
 

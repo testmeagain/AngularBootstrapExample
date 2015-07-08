@@ -37,7 +37,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        tasks: ['newer:copy:styles', 'postcss']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -150,9 +150,14 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 2 version']
+        browsers: ['last 2 version'],
+        processors: [
+//          require('pixrem')(),
+          require('autoprefixer-core')({browsers: 'last 2 versions'})
+//          require('cssnano')()
+        ]
       },
       server: {
         options: {
@@ -296,8 +301,8 @@ module.exports = function (grunt) {
     concat: {
       generated: {
         options: {
-          banner: ";(function(window, undefined){ \n 'use strict';\n",
-          footer: "}(window));"
+          banner: ';(function(window, undefined){ \n \'use strict\';\n',
+          footer: '}(window));'
         }
       }
     },
@@ -400,7 +405,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-      'autoprefixer:server',
+      'postcss:server',
       'connect:livereload',
       'watch'
     ]);
@@ -410,7 +415,7 @@ module.exports = function (grunt) {
     'clean:server',
     'wiredep',
     'concurrent:test',
-    'autoprefixer',
+    'postcss',
     'connect:test',
     'karma'
   ]);
@@ -420,7 +425,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    'postcss',
     'ngtemplates',
     'concat',
     'ngAnnotate',
