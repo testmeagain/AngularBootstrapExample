@@ -293,6 +293,15 @@ module.exports = function (grunt) {
       }
     },
 
+    concat: {
+      generated: {
+        options: {
+          banner: ";(function(window, undefined){ \n 'use strict';\n",
+          footer: "}(window));"
+        }
+      }
+    },
+
     ngAnnotate: {
       dist: {
         files: [{
